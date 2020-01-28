@@ -135,10 +135,6 @@ RUN pip install -e .
 # port 5005 is the port used in in Editor training.
 EXPOSE 5005
 
-COPY unity-volume /unity-volume
-COPY train.py ./
+COPY run.sh ./
 
-# ENTRYPOINT ["mlagents-learn", "--docker-target-name=unity-volume", "--env=3DBall", "--train", "trainer_config.yaml"]
-# ENTRYPOINT mlagents-learn --docker-target-name=unity-volume --env=3DBall --train trainer_config.yaml
-# ENTRYPOINT ["mlagents-learn"]
-ENTRYPOINT python train.py
+ENTRYPOINT ["run.sh"]
