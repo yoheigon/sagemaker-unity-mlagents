@@ -135,6 +135,6 @@ RUN pip install -e .
 # port 5005 is the port used in in Editor training.
 EXPOSE 5005
 
-COPY run.sh ./
-
-ENTRYPOINT ["run.sh"]
+COPY run.sh /code
+WORKDIR /code
+ENTRYPOINT ["./run.sh"]
