@@ -126,7 +126,11 @@ RUN apt-get install -y --no-install-recommends wget && apt-get install -y unzip
 RUN wget https://github.com/Unity-Technologies/ml-agents/archive/0.11.0.zip
 RUN unzip 0.11.0.zip
 
-# Install ml-agents-envs package locally
+#Install sagemaker-containers
+RUN apt-get -y install gcc
+RUN pip install sagemaker-containers
+
+#Install ml-agents-envs package locally
 WORKDIR /ml-agents-0.11.0/ml-agents-envs
 RUN pip install -e .
 
@@ -137,6 +141,8 @@ RUN pip install -e .
 # port 5005 is the port used in in Editor training.
 EXPOSE 5005
 
-COPY run.sh /ml-agents-0.11.0/
-WORKDIR /ml-agents-0.11.0/
-ENTRYPOINT ["./run.sh"]
+# Copies the training code inside the container
+COPY run.sh /opt/ml/code/run.sh
+
+# Defines run.sh as script entry point
+ENV SAGEMAKER_PROGRAM run.sh
