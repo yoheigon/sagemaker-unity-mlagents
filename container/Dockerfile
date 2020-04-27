@@ -123,19 +123,19 @@ RUN apt-get update && apt-get -y upgrade
 # xvfb is used to do CPU based rendering of Unity
 RUN apt-get install -y xvfb
 RUN apt-get install -y --no-install-recommends wget && apt-get install -y unzip
-RUN wget https://github.com/Unity-Technologies/ml-agents/archive/0.11.0.zip
-RUN unzip 0.11.0.zip
+RUN wget https://github.com/Unity-Technologies/ml-agents/archive/0.15.1.zip
+RUN unzip 0.15.1.zip
 
 #Install sagemaker-containers
 RUN apt-get -y install gcc
-RUN pip install sagemaker-containers
+RUN pip install -U pip && pip install sagemaker-containers
 
 #Install ml-agents-envs package locally
-WORKDIR /ml-agents-0.11.0/ml-agents-envs
+WORKDIR /ml-agents-0.15.1/ml-agents-envs
 RUN pip install -e .
 
 # Install ml-agents package next
-WORKDIR /ml-agents-0.11.0/ml-agents
+WORKDIR /ml-agents-0.15.1/ml-agents
 RUN pip install -e .
 
 # port 5005 is the port used in in Editor training.
